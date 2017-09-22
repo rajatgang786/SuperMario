@@ -28,6 +28,7 @@ import com.rajat.supermario.SuperMario;
 import com.rajat.supermario.Tools.B2WorldCreator;
 import com.rajat.supermario.Tools.WorldContactListener;
 import com.rajat.supermario.scene.Hud;
+import com.rajat.supermario.sprite.Goomba;
 import com.rajat.supermario.sprite.Mario;
 
 
@@ -42,6 +43,7 @@ public class PlayScreen implements Screen {
     private TextureAtlas atlas  ;
     private Hud hud;
     private Mario player;
+    private Goomba goomba;
 
     //Music Sound variable
     private Music music;
@@ -81,15 +83,17 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0,-10),true);
         b2dr = new Box2DDebugRenderer();
 
-        new B2WorldCreator(world,map);
+        new B2WorldCreator(this);
         //Initialise Mario
-        player = new Mario(world,this);
+        player = new Mario(this);
 
         world.setContactListener(new WorldContactListener());
 
         music = SuperMario.manager.get("audio/music/mario_music.ogg",Music.class);
         music.setLooping(true);
         music.play();
+
+        goomba = new Goomba(this,.32f,.32f);
 
     }
 
@@ -119,6 +123,10 @@ public class PlayScreen implements Screen {
 
         //player .update
             player.update(dt);
+
+        //goomba update
+        goomba.update(dt);
+
         //attach our gamecam to our player.x
         gamecam.position.x = player.b2body.getPosition().x;
         //update our gamecam with correct coordinates after change
@@ -146,12 +154,20 @@ public class PlayScreen implements Screen {
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         player.draw(game.batch);
+        goomba.draw(game.batch);
         game.batch.end();
 
         //set our batch to draw waht our hud camera see
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
+    }
+
+    public TiledMap getMap(){
+        return map;
+    }
+    public World getWorld(){
+        return world;
     }
 
     @Override

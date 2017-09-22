@@ -7,14 +7,15 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import com.rajat.supermario.SuperMario;
 import com.rajat.supermario.scene.Hud;
+import com.rajat.supermario.screen.PlayScreen;
 
 /**
  * Created by Boss on 9/22/2017.
  */
 
 public class Brick extends InterActiveTileObject {
-    public Brick(World world, TiledMap map, Rectangle bounds) {
-        super(world, map, bounds);
+    public Brick(PlayScreen screen, Rectangle bounds) {
+        super(screen, bounds);
         fixture.setUserData(this);
         setCategoryFilter(SuperMario.BRICK_BIT);
     }

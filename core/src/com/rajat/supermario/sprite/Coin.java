@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.rajat.supermario.SuperMario;
 import com.rajat.supermario.scene.Hud;
+import com.rajat.supermario.screen.PlayScreen;
 
 /**
  * Created by Boss on 9/22/2017.
@@ -21,8 +22,8 @@ public class Coin extends InterActiveTileObject {
 
     private static TiledMapTileSet tileset;
     private final int BLANK_COIN= 28;
-    public Coin(World world, TiledMap map, Rectangle bounds) {
-        super(world, map, bounds);
+    public Coin(PlayScreen screen, Rectangle bounds) {
+        super(screen, bounds);
         tileset = map.getTileSets().getTileSet("tileset_gutter");
         fixture.setUserData(this);
         setCategoryFilter(SuperMario.COIN_BIT);
