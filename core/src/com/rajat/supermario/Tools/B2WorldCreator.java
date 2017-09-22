@@ -57,7 +57,7 @@ public class B2WorldCreator {
         }
 
         //create brick body fixture
-        for(MapObject object :map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object :map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
 
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new Brick(world,map,rect);
@@ -65,7 +65,7 @@ public class B2WorldCreator {
         }
 
         //create coin body fixture
-        for(MapObject object :map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object :map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
 
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new Coin(world,map,rect);

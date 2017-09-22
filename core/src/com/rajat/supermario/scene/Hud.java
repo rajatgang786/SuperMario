@@ -23,10 +23,11 @@ public class Hud implements Disposable{
 
     private Integer worldTimer;
     private float timeCount;
-    private Integer score;
+    private static Integer score;
 
-    Label countdownLabel;
-    Label scoreLabel,timeLabel,levelLabel,worldLabel,marioLabel;
+    private Label countdownLabel;
+    private static Label scoreLabel;
+    private Label timeLabel,levelLabel,worldLabel,marioLabel;
 
     public Hud(SpriteBatch batch){
         worldTimer = 300;
@@ -46,15 +47,30 @@ public class Hud implements Disposable{
         worldLabel = new Label("WORLD",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         marioLabel = new Label("MARIO",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
-        table.add(marioLabel).expand().padTop(10);
-        table.add(worldLabel).expand().padTop( 10);
-        table.add(timeLabel).expand().padTop(10);
+        table.add(marioLabel).expand().padTop(5);
+        table.add(worldLabel).expand().padTop( 5);
+        table.add(timeLabel).expand().padTop(5);
         table.row();
         table.add(scoreLabel).expandX();
         table.add(levelLabel).expandX();
         table.add(countdownLabel).expandX();
 
         stage.addActor(table);
+    }
+
+    public void update(float dt){
+        timeCount += dt;
+        if(timeCount>=1)
+        {
+            worldTimer--;
+            countdownLabel.setText(String.format("%03d", worldTimer));
+            timeCount = 0;
+        }
+    }
+
+    public static void  addscore(int  value){
+        score += value;
+        scoreLabel.setText(String.format("%06d",score));
     }
 
     @Override

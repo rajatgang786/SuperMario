@@ -3,6 +3,7 @@ package com.rajat.supermario.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -41,6 +42,9 @@ public class PlayScreen implements Screen {
     private TextureAtlas atlas  ;
     private Hud hud;
     private Mario player;
+
+    //Music Sound variable
+    private Music music;
 
     //Tiled Map Variable
     private TmxMapLoader mapLoader;
@@ -83,6 +87,10 @@ public class PlayScreen implements Screen {
 
         world.setContactListener(new WorldContactListener());
 
+        music = SuperMario.manager.get("audio/music/mario_music.ogg",Music.class);
+        music.setLooping(true);
+        music.play();
+
     }
 
     public  TextureAtlas getAtlas(){
@@ -124,7 +132,7 @@ public class PlayScreen implements Screen {
     public void render(float delta) {
         //separate our update logic from render
         update(delta);
-
+        hud.update(delta);
         //clear the game screen with black
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
